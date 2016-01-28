@@ -1,0 +1,25 @@
+{
+  "name": "Q",
+  "version": "0.0.1",
+  "summary": "Persistent Queue written in swift what supports both Sqllite3 and Coredata.",
+  "description": "Persistent Queue written in swift what supports both Sqllite3 and Coredata.  Uses pod subspecs\nto include the necessary backend desired.",
+  "homepage": "https://github.com/edwardvalentini/Q",
+  "license": "MIT",
+  "authors": {
+    "Edward Valentini": "edward@interlook.com"
+  },
+  "source": {
+    "git": "https://github.com/edwardvalentini/Q.git",
+    "tag": "0.0.1"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "Q": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

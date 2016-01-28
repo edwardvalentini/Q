@@ -1,12 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'Q_Example', :exclusive => true do
+target 'Q_Example' do
   pod 'Q', :path => '../'
 end
 
-target 'Q_Tests', :exclusive => true do
+target 'Q_Tests' do
   pod 'Q', :path => '../'
-
-  
 end

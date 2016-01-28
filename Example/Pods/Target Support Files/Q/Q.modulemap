@@ -1,0 +1,6 @@
+framework module Q {
+  umbrella header "Q-umbrella.h"
+
+  export *
+  module * { export * }
+}
