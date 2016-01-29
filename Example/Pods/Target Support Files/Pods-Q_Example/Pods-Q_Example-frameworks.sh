@@ -84,8 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Q_Example/CocoaLumberjack.framework"
+  install_framework "Pods-Q_Example/FMDB.framework"
   install_framework "Pods-Q_Example/Q.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Q_Example/CocoaLumberjack.framework"
+  install_framework "Pods-Q_Example/FMDB.framework"
   install_framework "Pods-Q_Example/Q.framework"
 fi

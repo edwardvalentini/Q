@@ -3,8 +3,12 @@ use_frameworks!
 
 target 'Q_Example' do
   pod 'Q', :path => '../'
+  pod 'Q/FMDB', :path => '../'
+  pod 'Q/CoreData', :path => '../'
 end
 
 target 'Q_Tests' do
   pod 'Q', :path => '../'
+  pod 'Q/FMDB', :path => '../'
+  pod 'Q/CoreData', :path => '../'
 end

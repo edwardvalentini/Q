@@ -16,10 +16,50 @@
     "ios": "8.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "Q": [
-      "Pod/Assets/*.png"
-    ]
-  }
+  "default_subspecs": "Default",
+  "resources": [
+    "Pod/Assets/QAssets.bundle"
+  ],
+  "subspecs": [
+    {
+      "name": "Default",
+      "source_files": "Pod/Classes/*.swift",
+      "dependencies": {
+        "CocoaLumberjack/Swift": [
+
+        ]
+      }
+    },
+    {
+      "name": "FMDB",
+      "platforms": {
+        "ios": "8.0",
+        "osx": "10.10"
+      },
+      "source_files": "Pod/Classes/FMDB/*.swift",
+      "libraries": "sqlite3",
+      "dependencies": {
+        "Q/Default": [
+
+        ],
+        "FMDB": [
+
+        ]
+      }
+    },
+    {
+      "name": "CoreData",
+      "platforms": {
+        "ios": "8.0",
+        "osx": "10.10"
+      },
+      "source_files": "Pod/Classes/CoreData/*.swift",
+      "dependencies": {
+        "Q/Default": [
+
+        ]
+      },
+      "frameworks": "CoreData"
+    }
+  ]
 }

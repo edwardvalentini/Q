@@ -25,12 +25,30 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'Q' => ['Pod/Assets/*.png']
-  }
+  s.default_subspec = 'Default'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.resources = ['Pod/Assets/QAssets.bundle']
+
+  s.subspec 'Default' do |ss|
+    ss.source_files = 'Pod/Classes/*.swift'
+    ss.dependency 'CocoaLumberjack/Swift'
+  end
+
+  s.subspec 'FMDB' do |ss|
+    ss.ios.deployment_target = '8.0'
+    ss.osx.deployment_target = '10.10'
+    ss.source_files = 'Pod/Classes/FMDB/*.swift'
+    ss.library = 'sqlite3'
+    ss.dependency 'Q/Default'
+    ss.dependency 'FMDB'
+  end
+
+  s.subspec 'CoreData' do |ss|
+    ss.ios.deployment_target = '8.0'
+    ss.osx.deployment_target = '10.10'
+    ss.source_files = 'Pod/Classes/CoreData/*.swift'
+    ss.dependency 'Q/Default'
+    ss.framework = 'CoreData'
+  end
+
 end
