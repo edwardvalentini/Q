@@ -30,14 +30,26 @@
                                 <rect key="frame" x="283" y="81" width="34" height="30"/>
                                 <state key="normal" title="Start"/>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OMs-IK-XwT">
+                                <rect key="frame" x="20" y="118" width="560" height="472"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="0Xg-wz-Ada"/>
                             <constraint firstItem="fFG-52-rS7" firstAttribute="top" secondItem="kfd-1y-hmk" secondAttribute="bottom" constant="25" id="3EE-Oe-oTg"/>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="6uD-bi-b0f"/>
+                            <constraint firstItem="OMs-IK-XwT" firstAttribute="top" secondItem="fFG-52-rS7" secondAttribute="bottom" constant="7" id="6wq-ve-9j4"/>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="10" id="HiS-Be-akL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OMs-IK-XwT" secondAttribute="trailing" id="Hrl-FP-fdT"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OMs-IK-XwT" secondAttribute="bottom" constant="10" id="O7E-Bk-x7i"/>
                             <constraint firstItem="fFG-52-rS7" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Wki-y7-z4o"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="OMs-IK-XwT" secondAttribute="leading" id="hEJ-8Q-geq"/>
+                            <constraint firstItem="OMs-IK-XwT" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="hwA-N4-weX"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="kfd-1y-hmk" secondAttribute="trailing" constant="10" id="xEc-f6-WLe"/>
                         </constraints>
                     </view>
