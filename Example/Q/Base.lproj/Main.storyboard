@@ -26,12 +26,18 @@
                                     <segment title="Sqllite via FMDB"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFG-52-rS7">
+                                <rect key="frame" x="283" y="81" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="0Xg-wz-Ada"/>
+                            <constraint firstItem="fFG-52-rS7" firstAttribute="top" secondItem="kfd-1y-hmk" secondAttribute="bottom" constant="25" id="3EE-Oe-oTg"/>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="6uD-bi-b0f"/>
                             <constraint firstItem="kfd-1y-hmk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="10" id="HiS-Be-akL"/>
+                            <constraint firstItem="fFG-52-rS7" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Wki-y7-z4o"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="kfd-1y-hmk" secondAttribute="trailing" constant="10" id="xEc-f6-WLe"/>
                         </constraints>
                     </view>
