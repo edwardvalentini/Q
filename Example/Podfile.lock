@@ -1,38 +1,25 @@
 PODS:
-  - CocoaLumberjack/Core (2.2.0)
-  - CocoaLumberjack/Default (2.2.0):
+  - CocoaLumberjack/Core (3.0.0)
+  - CocoaLumberjack/Default (3.0.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.2.0):
+  - CocoaLumberjack/Extensions (3.0.0):
     - CocoaLumberjack/Default
-  - CocoaLumberjack/Swift (2.2.0):
+  - CocoaLumberjack/Swift (3.0.0):
     - CocoaLumberjack/Extensions
-  - FMDB (2.6):
-    - FMDB/standard (= 2.6)
-  - FMDB/standard (2.6)
   - Q (0.0.1):
-    - Q/Default (= 0.0.1)
-  - Q/CoreData (0.0.1):
-    - Q/Default
-  - Q/Default (0.0.1):
     - CocoaLumberjack/Swift
-  - Q/FMDB (0.0.1):
-    - FMDB
-    - Q/Default
 
 DEPENDENCIES:
   - Q (from `../`)
-  - Q/CoreData (from `../`)
-  - Q/FMDB (from `../`)
 
 EXTERNAL SOURCES:
   Q:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
-  Q: 01fc9b0c89477b5efe0f8f1fb4f42258e2172153
+  CocoaLumberjack: c823149bccc5519a9447aeb433be7b1212a7d6a5
+  Q: ed466aaadf80fb0fa8f5999dfe3334ea5842d04e
 
-PODFILE CHECKSUM: e3167942d1a817dd7dd83e06b069aafcb6fb3654
+PODFILE CHECKSUM: 5f4a850f146093a30543c1f875e1b3a976543e31
 
-COCOAPODS: 1.0.0.beta.2
+COCOAPODS: 1.2.0.beta.1

@@ -9,10 +9,9 @@
 Pod::Spec.new do |s|
   s.name             = "Q"
   s.version          = "0.0.1"
-  s.summary          = "Persistent Queue written in swift what supports both Sqllite3 and Coredata."
+  s.summary          = "Persistent Queue written in Swift with a core data backend."
   s.description      = <<-DESC
-  Persistent Queue written in swift what supports both Sqllite3 and Coredata.  Uses pod subspecs
-  to include the necessary backend desired.
+  Persistent Queue written in swift with a core data backend.
                        DESC
 
   s.homepage         = "https://github.com/edwardvalentini/Q"
@@ -20,35 +19,19 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Edward Valentini" => "edward@interlook.com" }
   s.source           = { :git => "https://github.com/edwardvalentini/Q.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/edwardvalentini'
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '10.0'
   s.requires_arc = true
 
-  s.default_subspec = 'Default'
+  s.resource_bundles = {
+      'Q' => ['Pod/Assets/*']
+    }
 
-  s.resources = ['Pod/Assets/QAssets.bundle']
-
-  s.subspec 'Default' do |ss|
-    ss.source_files = 'Pod/Classes/*.swift'
-    ss.dependency 'CocoaLumberjack/Swift'
-  end
-
-  s.subspec 'FMDB' do |ss|
-    ss.ios.deployment_target = '8.0'
-    ss.osx.deployment_target = '10.10'
-    ss.source_files = 'Pod/Classes/FMDB/*.swift'
-    ss.library = 'sqlite3'
-    ss.dependency 'Q/Default'
-    ss.dependency 'FMDB'
-  end
-
-  s.subspec 'CoreData' do |ss|
-    ss.ios.deployment_target = '8.0'
-    ss.osx.deployment_target = '10.10'
-    ss.source_files = 'Pod/Classes/CoreData/*.swift'
-    ss.dependency 'Q/Default'
-    ss.framework = 'CoreData'
-  end
+  s.ios.deployment_target = '9.0'
+  s.osx.deployment_target = '10.11'
+  s.source_files = 'Pod/Classes/**/*.{swift,xcdatamodeld,xcdatamodel}'
+  s.dependency 'CocoaLumberjack/Swift'
+  s.framework = 'CoreData'
 
 end

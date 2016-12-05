@@ -8,47 +8,47 @@
 import UIKit
 import CocoaLumberjack
 
-@objc public class QOperation: NSOperation {
-    public let queue: Q
-    public var operationID: String
-    public var operationName: String
-    public var retries: Int
-    public var retryCount: Int = 0
-    public let created: NSDate
-    public var started: NSDate?
-    public var userInfo: AnyObject?
-    public var retryDelay: Int
+@objc open class QOperation: Operation {
+    open let queue: Q
+    open var operationID: String
+    open var operationName: String
+    open var retries: Int
+    open var retryCount: Int = 0
+    open let created: Date
+    open var started: Date?
+    open var userInfo: AnyObject?
+    open var retryDelay: Int
     var error: NSError?
-    public var operationBlock: QOperationBlock?
+    open var operationBlock: QOperationBlock?
     
     var _executing: Bool = false
     var _finished: Bool = false
     
-    public override var name: String? {get {return operationID } set { } }
+    open override var name: String? {get {return operationID } set { } }
     
-    public override var executing: Bool {
+    open override var isExecuting: Bool {
         get { return _executing }
         set {
-            willChangeValueForKey("isExecuting")
+            willChangeValue(forKey: "isExecuting")
             _executing = newValue
-            didChangeValueForKey("isExecuting")
+            didChangeValue(forKey: "isExecuting")
         }
     }
-    public override var finished: Bool {
+    open override var isFinished: Bool {
         get { return _finished }
         set {
-            willChangeValueForKey("isFinished")
+            willChangeValue(forKey: "isFinished")
             _finished = newValue
-            didChangeValueForKey("isFinished")
+            didChangeValue(forKey: "isFinished")
         }
     }
     
     
     public init(queue: Q, operationID: String? = nil, operationName: String, userInfo: AnyObject? = nil,
-        created: NSDate = NSDate(), started: NSDate? = nil ,
+        created: Date = Date(), started: Date? = nil ,
         retries: Int = 0, retryDelay: Int = 0, operationBlock: QOperationBlock? = nil) {
             self.queue = queue
-            self.operationID = operationID ?? NSUUID().UUIDString
+            self.operationID = operationID ?? UUID().uuidString
             self.operationName = operationName
             self.retries = retries
             self.created = created
@@ -72,11 +72,11 @@ import CocoaLumberjack
             let retries = dictionary["retries"] as? Int? ?? 0,
             let retryDelay =  dictionary["retryDelay"] as? Int? ?? 0
         {
-            let created = NSDate(dateString: createdStr) ?? NSDate()
-            let started = (startedStr != nil) ? NSDate(dateString: startedStr!) : nil
+            let created = Date(dateString: createdStr) ?? Date()
+            let started = (startedStr != nil) ? Date(dateString: startedStr!) : nil
             
             self.queue = queue
-            self.operationID = operationID ?? NSUUID().UUIDString
+            self.operationID = operationID ?? UUID().uuidString
             self.operationName = operationName
             self.retries = retries
             self.created = created
@@ -90,7 +90,7 @@ import CocoaLumberjack
             self.operationName = ""
             self.operationID = ""
             self.retries = 0
-            self.created = NSDate()
+            self.created = Date()
             self.userInfo = nil
             self.retryDelay = 0
             self.started = nil
@@ -111,49 +111,49 @@ import CocoaLumberjack
         }
     }
 
-    public func completeOperation() {
+    open func completeOperation() {
         self.completeOperation(nil)
     }
     
-    public func failedRetries() -> Bool {
+    open func failedRetries() -> Bool {
         return retryCount >= min(queue.maxRetries,retries)
     }
     
-    public func completeOperation(error: NSError?) {
-        if (!executing) {
-            finished = true
+    open func completeOperation(_ error: NSError?) {
+        if (!isExecuting) {
+            isFinished = true
             return
         }
         if let error = error {
             self.error = error
-            self.retryCount++
+            self.retryCount += 1
             
             if failedRetries() {
                 cancel()
-                executing = false
-                finished = true
+                isExecuting = false
+                isFinished = true
                 return
             }
             DDLogVerbose("INSIDE THE QOperation: Operation \(operationName) failed and we are on retry number \(retryCount) of \(min(queue.maxRetries,retries)) times with \(retryDelay) seconds between retries...")
             
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(retryDelay) * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            let delayTime = DispatchTime.now() + Double(Int64(Double(retryDelay) * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: delayTime) {
                 self.main()
             }
             
         
         } else {
-            executing = false
-            finished = true
+            isExecuting = false
+            isFinished = true
         }
     }
     
     // MARK: - overide method
     
     
-    override public func main() {
-        if cancelled && !finished { finished = true }
-        if finished { return }
+    override open func main() {
+        if isCancelled && !isFinished { isFinished = true }
+        if isFinished { return }
         
         super.main()
         
@@ -163,20 +163,20 @@ import CocoaLumberjack
     }
     
     
-    public override func start() {
+    open override func start() {
         super.start()
-        executing = true
+        isExecuting = true
     }
     
-    public override func cancel() {
+    open override func cancel() {
         super.cancel()
-        finished = true
+        isFinished = true
     }
     
     
     // MARK: - JSON Helpers
     
-    public func toJSONString() -> String? {
+    open func toJSONString() -> String? {
         let dict = toDictionary()
         
         let nsdict = NSMutableDictionary(capacity: dict.count)
@@ -191,16 +191,16 @@ import CocoaLumberjack
         }
     }
     
-    public func toDictionary() -> [String: AnyObject?] {
+    open func toDictionary() -> [String: AnyObject?] {
         var dict = [String: AnyObject?]()
         
-        dict["operationID"] = self.operationID
-        dict["operationName"] = self.operationName
+        dict["operationID"] = self.operationID as AnyObject??
+        dict["operationName"] = self.operationName as AnyObject??
         dict["created"] = self.created.toISOString()
         dict["started"] = (self.started != nil) ? self.started!.toISOString() : nil
-        dict["retries"] = self.retries
+        dict["retries"] = self.retries as AnyObject??
         dict["userInfo"] = self.userInfo
-        dict["retryDelay"] = self.retryDelay
+        dict["retryDelay"] = self.retryDelay as AnyObject??
         return dict
     }
 

@@ -18,7 +18,7 @@ extension QOperationModel {
     @NSManaged var uuid: String?
     @NSManaged var queue_name: String?
     @NSManaged var operation_id: String?
-    @NSManaged var timestamp: NSDate?
+    @NSManaged var timestamp: Date?
     @NSManaged var operation: String?
 
 }

@@ -7,14 +7,38 @@
 
 import UIKit
 import CocoaLumberjack
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 public typealias QOperationBlock = (QOperation) -> Void
 public typealias QJSONDictionary = [String: AnyObject]
 
 
-@objc public class Q: NSOperationQueue {
+@objc open class Q: OperationQueue {
     
-    public let maxRetries: Int
+    open let maxRetries: Int
     var opList = [String: QOperation]()
     let serializationProvider: QSerializerPrototol?
     
@@ -31,19 +55,19 @@ public typealias QJSONDictionary = [String: AnyObject]
     
     
     
-    public func hasUnfinishedOperations() -> Bool {
+    open func hasUnfinishedOperations() -> Bool {
         return serializationProvider?.deSerializedOperations(queue: self).count > 0
     }
     
-    public func start() {
-        self.suspended = false
+    open func start() {
+        self.isSuspended = false
     }
     
-    public func pause() {
-        self.suspended = true
+    open func pause() {
+        self.isSuspended = true
     }
     
-    public func loadSerializedOperations() {
+    open func loadSerializedOperations() {
         DDLogVerbose("not implemented yet")
 //        self.pause()
 //        if let ops = serializationProvider?.deSerializedOperations(queue: self) {
@@ -54,7 +78,7 @@ public typealias QJSONDictionary = [String: AnyObject]
 //        self.start()
     }
     
-    private func addDeserializedOperation(operation: QOperation) {
+    fileprivate func addDeserializedOperation(_ operation: QOperation) {
         if opList[operation.operationID] != nil {
             return
         }
@@ -69,7 +93,7 @@ public typealias QJSONDictionary = [String: AnyObject]
 //    }
     
     
-    public override func addOperation(op: NSOperation) {
+    open override func addOperation(_ op: Operation) {
         if let op = op as? QOperation {
             if opList[op.operationID] != nil {
                 DDLogVerbose("error duplicate operation \(op.operationID)")
@@ -84,16 +108,16 @@ public typealias QJSONDictionary = [String: AnyObject]
     }
     
     
-    private func operationComplete(op: NSOperation) {
+    fileprivate func operationComplete(_ op: Operation) {
         if let op = op as? QOperation {
             
             objc_sync_enter(opList)
             defer { objc_sync_exit(opList) }
             
-            if opList.contains( {(item: String, qOp: QOperation) -> Bool in
+            if opList.contains( where: {(item: String, qOp: QOperation) -> Bool in
                 return qOp.operationID == op.operationID
             }) {
-                opList.removeValueForKey(op.operationID)
+                opList.removeValue(forKey: op.operationID)
                 if let _ = op.error {
                     if op.failedRetries() {
                         DDLogVerbose("OUTSIDE IN THE Q: Operation \(op.operationName) failed all the retries.  There are \(opList.count) OTHER operations left.")

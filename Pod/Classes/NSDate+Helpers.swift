@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension NSDate {
-    convenience init?(dateString:String) {
-        let formatter = NSDateFormatter()
+extension Date {
+    init?(dateString:String) {
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        if let d = formatter.dateFromString(dateString) {
-            self.init(timeInterval:0, sinceDate:d)
+        if let d = formatter.date(from: dateString) {
+            (self as NSDate).init(timeInterval:0, since:d)
         } else {
-            self.init(timeInterval:0, sinceDate:NSDate())
+            (self as NSDate).init(timeInterval:0, since:Date())
             return nil
         }
     }
@@ -30,16 +30,16 @@ extension NSDate {
     }
     
     func toISOString() -> String {
-        return self.isoFormatter.stringFromDate(self)
+        return self.isoFormatter.string(from: self)
     }
 }
 
-class ISOFormatter : NSDateFormatter {
+class ISOFormatter : DateFormatter {
     override init() {
         super.init()
         self.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        self.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        self.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierISO8601)!
+        self.timeZone = TimeZone(secondsFromGMT: 0)
+        self.calendar = Calendar(identifier: Calendar.Identifier.iso8601)
     }
     
     required init?(coder aDecoder: NSCoder) {

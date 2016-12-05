@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-@objc public class QSerializerNSDefaults: NSObject, QSerializerPrototol {
+@objc open class QSerializerNSDefaults: NSObject, QSerializerPrototol {
     
-    public func serializeOperation(operation: QOperation, queue: Q) {
+    open func serializeOperation(_ operation: QOperation, queue: Q) {
         
         if let queueName = queue.name {
             if let serialized = operation.toJSONString() {
-                let defaults = NSUserDefaults.standardUserDefaults()
+                let defaults = UserDefaults.standard
                 var stringArray: [String]
-                    if let curStringArray = defaults.stringArrayForKey(queueName) {
+                    if let curStringArray = defaults.stringArray(forKey: queueName) {
                         stringArray = curStringArray
                         stringArray.append(serialized)
                     } else {
@@ -36,10 +36,10 @@ import UIKit
             
     }
     
-    public func deSerializedOperations(queue queue: Q) -> [QOperation] {
-        let defaults = NSUserDefaults.standardUserDefaults()
+    open func deSerializedOperations(queue: Q) -> [QOperation] {
+        let defaults = UserDefaults.standard
         if  let queueName = queue.name,
-            let stringArray = defaults.stringArrayForKey(queueName) {
+            let stringArray = defaults.stringArray(forKey: queueName) {
                 print(stringArray.count)
                 return stringArray
                     .map { return QOperation(json: $0, queue: queue)}
@@ -49,7 +49,7 @@ import UIKit
         return []
     }
     
-    public func removeOperation(operationID: String, queue: Q) {
+    open func removeOperation(_ operationID: String, queue: Q) {
         if let queueName = queue.name {
             var curArray: [QOperation] = deSerializedOperations(queue: queue)
             curArray = curArray.filter {return $0.operationID != operationID }
@@ -57,7 +57,7 @@ import UIKit
                 .map {return $0.toJSONString() }
                 .filter { return $0 != nil}
                 .map { return $0! }
-            NSUserDefaults.standardUserDefaults().setValue(stringArray, forKey: queueName)
+            UserDefaults.standard.setValue(stringArray, forKey: queueName)
         }
     }
     

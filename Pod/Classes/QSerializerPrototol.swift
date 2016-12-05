@@ -7,7 +7,7 @@
 import UIKit
 
 @objc public protocol QSerializerPrototol: NSObjectProtocol {
-    func serializeOperation(operation: QOperation, queue: Q)
-    func deSerializedOperations(queue queue: Q) -> [QOperation]
-    func removeOperation(operationID: String, queue: Q)
+    func serializeOperation(_ operation: QOperation, queue: Q)
+    func deSerializedOperations(queue: Q) -> [QOperation]
+    func removeOperation(_ operationID: String, queue: Q)
 }

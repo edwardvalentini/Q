@@ -7,15 +7,15 @@
 
 import UIKit
 
-@objc public class QJSON: NSObject {
-    public class func toJSON(obj: AnyObject) throws -> String? {
-        let json = try NSJSONSerialization.dataWithJSONObject(obj, options: [])
-        return NSString(data: json, encoding: NSUTF8StringEncoding) as String?
+@objc open class QJSON: NSObject {
+    open class func toJSON(_ obj: AnyObject) throws -> String? {
+        let json = try JSONSerialization.data(withJSONObject: obj, options: [])
+        return NSString(data: json, encoding: String.Encoding.utf8.rawValue) as String?
     }
     
-    public class func fromJSON(str: String) throws -> AnyObject? {
-        if let json = str.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-            let obj: AnyObject = try NSJSONSerialization.JSONObjectWithData(json, options: .AllowFragments)
+    open class func fromJSON(_ str: String) throws -> AnyObject? {
+        if let json = str.data(using: String.Encoding.utf8, allowLossyConversion: false) {
+            let obj: AnyObject = try JSONSerialization.jsonObject(with: json, options: .allowFragments)
             return obj
         }
         return nil
