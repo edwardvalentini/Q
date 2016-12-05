@@ -8,7 +8,7 @@
 import UIKit
 import CocoaLumberjack
 
-@objc open class QOperation: Operation {
+open class QOperation: Operation {
     open let queue: Q
     open var operationID: String
     open var operationName: String
@@ -191,16 +191,16 @@ import CocoaLumberjack
         }
     }
     
-    open func toDictionary() -> [String: AnyObject?] {
-        var dict = [String: AnyObject?]()
+    open func toDictionary() -> [AnyHashable: Any] {
+        var dict : [AnyHashable: Any] = [:]
         
-        dict["operationID"] = self.operationID as AnyObject??
-        dict["operationName"] = self.operationName as AnyObject??
+        dict["operationID"] = self.operationID
+        dict["operationName"] = self.operationName
         dict["created"] = self.created.toISOString()
-        dict["started"] = (self.started != nil) ? self.started!.toISOString() : nil
-        dict["retries"] = self.retries as AnyObject??
+        dict["started"] =  self.started!.toISOString()
+        dict["retries"] = self.retries
         dict["userInfo"] = self.userInfo
-        dict["retryDelay"] = self.retryDelay as AnyObject??
+        dict["retryDelay"] = self.retryDelay
         return dict
     }
 

@@ -10,10 +10,8 @@ import UIKit
 import CoreData
 
 
-@objc open class QSerializerCoreData: NSObject, QSerializerPrototol {
-    
-    
-    
+open class QSerializerCoreData: QSerializerPrototol {
+
     open func serializeOperation(_ operation: QOperation, queue: Q) {
         
     }

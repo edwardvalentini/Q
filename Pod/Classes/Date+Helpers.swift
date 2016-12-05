@@ -12,9 +12,9 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
         if let d = formatter.date(from: dateString) {
-            (self as NSDate).init(timeInterval:0, since:d)
+            self.init(timeInterval:0, since:d)
         } else {
-            (self as NSDate).init(timeInterval:0, since:Date())
+            self.init(timeInterval:0, since:Date())
             return nil
         }
     }

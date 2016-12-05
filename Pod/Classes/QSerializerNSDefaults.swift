@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-@objc open class QSerializerNSDefaults: NSObject, QSerializerPrototol {
+open class QSerializerNSDefaults: QSerializerPrototol {
     
     open func serializeOperation(_ operation: QOperation, queue: Q) {
         

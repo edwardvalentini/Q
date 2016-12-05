@@ -25,12 +25,12 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.resource_bundles = {
-      'Q' => ['Pod/Assets/*']
+      'Q' => ['Pod/Assets/*','Pod/Classes/*.{xcdatamodeld,xcdatamodel}']
     }
 
   s.ios.deployment_target = '9.0'
   s.osx.deployment_target = '10.11'
-  s.source_files = 'Pod/Classes/**/*.{swift,xcdatamodeld,xcdatamodel}'
+  s.source_files = 'Pod/Classes/*.{swift}'
   s.dependency 'CocoaLumberjack/Swift'
   s.framework = 'CoreData'
 
